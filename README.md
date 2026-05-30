@@ -10,6 +10,12 @@ A lightweight REST API and browser UI for tracking personal expenses, built with
 
 Expense Tracker is a full-stack web application that lets users add, view, and summarize personal expenses through a browser-based UI backed by a FastAPI server. Expenses are modeled with strict types via Pydantic and rendered server-side and client-side using Jinja2 templates and vanilla JavaScript. The project is containerized and ready for one-command deployment to Google Cloud Run.
 
+## Screenshots
+
+![Expense Tracker home screen](screenshots/home.png)
+
+![Expense detail screen](screenshots/detail.png)
+
 ---
 
 ## Highlights
@@ -160,7 +166,7 @@ curl http://localhost:9002/expense/1
 
 - The `Expense` Pydantic model uses Python's `datetime.date` type for the `date` field, which means FastAPI automatically validates and deserializes ISO 8601 date strings — invalid dates are rejected before reaching any handler logic.
 - The UI generates a client-side timestamp (`Date.now()`) as the expense `id` on creation, making the frontend responsible for ID generation without a database sequence. This is a deliberate simplification that also surfaces a clear extension point for adding a real persistence layer.
-- The `Dockerfile` intentionally keeps the image minimal: it only copies `main.py` (not the full project root), which keeps the production image lean. The `models/` directory would need to be added for full functionality — an intentional scaffold artifact.
+- The `Dockerfile` now copies the full application tree, so the FastAPI server has access to `main.py`, `models/`, and the Jinja2 templates at runtime.
 
 ---
 
