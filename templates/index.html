@@ -126,6 +126,11 @@
 
 <body>
     <h1>Expense Tracker</h1>
+    <div>
+        <h2>Overview</h2>
+        <p>Current entries: <strong>{{ initial_count }}</strong></p>
+        <p>Current total: <strong>$<span id="initial-total">{{ '%.2f'|format(initial_total) }}</span></strong></p>
+    </div>
 
     <!-- Add Expense Form -->
     <div>
@@ -199,6 +204,12 @@
                 li.appendChild(link);
                 expensesList.appendChild(li);
             });
+
+            if (expenses.length === 0) {
+                const li = document.createElement("li");
+                li.textContent = "No expenses recorded yet.";
+                expensesList.appendChild(li);
+            }
         }
 
         // Fetch and display all expenses when the page loads
